@@ -2,6 +2,6 @@ import { getUser } from '../controllers/user'
 import  createApp  from '../lib/create-app'
 
 const router = createApp()
-router.get('/getUser', getUser)
+router.get('/get-user', getUser)
 
 export default router
