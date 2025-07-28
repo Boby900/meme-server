@@ -1,13 +1,7 @@
-import { Hono } from 'hono'
+import { getUser } from '../controllers/user'
+import  createApp  from '../lib/create-app'
 
-const user = new Hono()
+const router = createApp()
+router.get('/getUser', getUser)
 
-user.post('/create', (c) => {
-  return c.json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    environment: 'development',
-  })
-})
-
-export { user }
+export default router
