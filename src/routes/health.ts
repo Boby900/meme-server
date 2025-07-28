@@ -1,14 +1,41 @@
-import  createApp  from '../lib/create-app'
+import { createRoute, z } from '@hono/zod-openapi'
+import createApp from '../lib/create-app'
 
 const health = createApp()
 
-health.get('/', (c) => {
-  return c.json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    environment: 'development',
+health.openapi(
+  createRoute({
+    tags: ['Health'],
+    path: '/',
+    method: 'get',
+    responses: {
+      200: {
+        content: {
+          'application/json': {
+            schema: z.object({
+              status: z.string(),
+              timestamp: z.string(),
+              environment: z.string(),
+              message: z.string().optional(),
+            }),
+
+          },
+        },
+        description: 'health check',
+      },
+
+    },
+  },
+
+  ),
+  (c) => {
+    return c.json({
+      status: 'okay',
+      timestamp: new Date().toISOString(),
+      environment: 'development',
+    })
   })
-})
+
 health.get('/kv-example', async (c) => {
   const kv = c.env.KV
   const debugMode = c.env.DEBUG_MODE // "true"
