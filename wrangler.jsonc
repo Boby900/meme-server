@@ -7,6 +7,13 @@
     "nodejs_compat",
     "global_fetch_strictly_public"
   ],
+  "dev": {
+    "port": 8080
+  },
+  "vars": {
+    "DEBUG_MODE": "true",
+    "API_VERSION": "v1"
+  },
   "workers_dev": true,
   "d1_databases": [
     {
