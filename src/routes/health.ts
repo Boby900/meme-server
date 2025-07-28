@@ -5,6 +5,7 @@ const health = createApp()
 
 health.openapi(
   createRoute({
+    tags: ['Health'],
     path: '/',
     method: 'get',
     responses: {
