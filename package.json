@@ -1,6 +1,7 @@
 {
   "name": "meme-server",
   "type": "module",
+  "version": "1.0.1",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",

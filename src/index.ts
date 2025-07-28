@@ -1,32 +1,13 @@
-import type { Bindings } from './types'
-import { OpenAPIHono } from '@hono/zod-openapi'
-import { health } from './routes/health'
-import { user } from './routes/user'
 
-const app = new OpenAPIHono<{ Bindings: Bindings }>()
+import health from './routes/health'
+import createApp from './lib/create-app'
+import { configureOpenApi } from './lib/configure-open-api'
+import user from './routes/user'
 
-app.get('/kv-example', async (c) => {
-  const kv = c.env.KV
-  // Store a value
-  const debugMode = c.env.DEBUG_MODE // "true"
-  const apiVersion = c.env.API_VERSION // "v1"
-  console.log(kv)
-  console.log(debugMode)
-  console.log(apiVersion)
+const app = createApp()
+configureOpenApi(app)
+app.route('/', health)
+app.route('/',user)
 
-  await kv.get('test')
-  await kv.put('test', 'bob is here brotherrrrr')
-
-  // Get a value
-  const value = await kv.get('test')
-
-  return c.json({ value, debugMode, apiVersion })
-})
-app.get('/', async (c) => {
-  return c.text('hello world')
-})
-
-app.route('/health', health)
-app.route('/users', user)
 
 export default app
