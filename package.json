@@ -4,17 +4,24 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
+    "@cloudflare/workers-types": "^4.20250726.0",
+    "@hono/zod-openapi": "^1.0.2",
     "@types/bun": "^1.2.19",
     "dotenv": "^17.2.1",
     "drizzle-kit": "^0.31.4",
     "drizzle-orm": "^0.44.3",
     "effect": "^3.17.2",
-    "hono": "^4.8.9"
+    "hono": "^4.8.9",
+    "zod": "^4.0.10"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^5.0.0",
+    "eslint": "^9.32.0",
     "wrangler": "^4.4.0"
   }
 }

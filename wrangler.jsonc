@@ -7,6 +7,13 @@
     "nodejs_compat",
     "global_fetch_strictly_public"
   ],
+  "dev": {
+    "port": 8080
+  },
+  "vars": {
+    "DEBUG_MODE": "true",
+    "API_VERSION": "v1"
+  },
   "workers_dev": true,
   "d1_databases": [
     {
@@ -22,13 +29,13 @@
       "bucket_name": "my-upload"
     }
   ],
-    "kv_namespaces": [
-      {
-        "binding": "KV",
-        "id": "b7daba7632c24fd8ba5db2880b6ed912",
-        
-        // Optional: preview_id used when running `wrangler dev` for local dev
-        "preview_id": "9fc1c7950e7f46a5b17917b2095fb4b0"
-      }
-    ]
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "b7daba7632c24fd8ba5db2880b6ed912",
+
+      // Optional: preview_id used when running `wrangler dev` for local dev
+      "preview_id": "9fc1c7950e7f46a5b17917b2095fb4b0"
+    }
+  ]
 }
