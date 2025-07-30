@@ -102,8 +102,33 @@ export const readKVRoute = createRoute({
   }
 })
 
+export const deleteKVRoute = createRoute({
+  tags: ['Notes'],
+  method: "delete", 
+  path: "/kv/{key}",
+ 
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: z.string() // Just a string!
+        }
+      },
+      description: "Raw value from KV store"
+    },
+    404: {
+      content: {
+        "application/json": {
+          schema: z.string()
+        }
+      },
+      description: "Key not found"
+    }
+  }
+})
 export type notesRoutes = typeof notes
 export type notesPostRoutes = typeof notesPost
 
 export type writeKVRoute = typeof writeKVRoute
 export type readKVRoute = typeof readKVRoute
+export type deleteKVRoute = typeof deleteKVRoute

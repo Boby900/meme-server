@@ -1,6 +1,6 @@
 import { RouteHandler } from "@hono/zod-openapi"
 import type { Bindings } from "../../types"
-import { notesRoutes, notesPostRoutes, writeKVRoute, readKVRoute } from "../../routes/notes/notes.routes"
+import { notesRoutes, notesPostRoutes, writeKVRoute, readKVRoute, deleteKVRoute } from "../../routes/notes/notes.routes"
 
 export const notesHandler: RouteHandler<notesRoutes, { Bindings: Bindings }> = async (c) => {
     return c.json(
@@ -38,3 +38,14 @@ export const readNotesFromKV: RouteHandler<readKVRoute, { Bindings: Bindings }> 
     return c.json(`Key  found ${value}`, 200)
 }
 
+export const deleteNotesFromKV: RouteHandler<deleteKVRoute, { Bindings: Bindings }> = async (c) => {
+    const key = c.req.param('key')  
+    console.log(key)
+    const value = await c.env.KV.get(key)
+    if (!value) {
+        return c.json("Key not found", 404)
+    }
+    const deleted = await c.env.KV.delete(key)
+    console.log(deleted)
+    return c.json(`Key  found ${value} deleted ${deleted}`, 200)
+}
