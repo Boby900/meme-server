@@ -7,6 +7,7 @@
     "deploy": "wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "lint": "eslint",
+    "test": "vitest",
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^5.0.0",
     "eslint": "^9.32.0",
+    "vitest": "^3.2.4",
     "wrangler": "^4.4.0"
   }
 }
