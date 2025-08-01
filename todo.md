@@ -6,4 +6,6 @@
 [] add monitoring for the apis using hono's built in helpers
 [] add caching for the apis using hono's built in helpers
 [] add security headers for the apis using hono's built in helpers
+[] add logging for the apis using hono's built in helpers
+
 
