@@ -20,6 +20,7 @@
     "drizzle-orm": "^0.44.3",
     "effect": "^3.17.2",
     "hono": "^4.8.9",
+    "meme-helpers": "^1.1.1",
     "zod": "^4.0.10"
   },
   "devDependencies": {
