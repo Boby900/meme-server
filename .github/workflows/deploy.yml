@@ -8,6 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy
+    environment: meme-server
     steps:
       - name: Checkout
         uses: actions/checkout@v4
