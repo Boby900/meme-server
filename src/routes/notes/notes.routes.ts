@@ -29,8 +29,7 @@ export const notesPost = createRoute({
   method: 'post',
   request: {
     headers: authHeaderSchema,
-    body:
-    {
+    body: {
       content: {
         'application/json': {
           schema: z.object({
@@ -40,7 +39,7 @@ export const notesPost = createRoute({
           }),
         },
       },
-    }
+    },
   },
   responses: {
     200: {
@@ -51,12 +50,10 @@ export const notesPost = createRoute({
           }),
         },
       },
-      description: 'get notes',
+      description: 'create note',
     },
   },
-
-},
-)
+})
 export const writeKVRoute = createRoute({
   tags: ['Notes'],
   method: "post",
