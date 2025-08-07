@@ -22,7 +22,8 @@ const createMockContext = (overrides = {}) => {
         put: vi.fn(),
         get: vi.fn(),
         delete: vi.fn(),
-      }
+      },
+       BACKEND_SECRET: process.env.BACKEND_SECRET,
     },
     ...overrides
   }
