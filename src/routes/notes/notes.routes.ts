@@ -1,7 +1,7 @@
 import { createRoute, z } from '@hono/zod-openapi'
 // Define the authorization header schema
 const authHeaderSchema = z.object({
-  authorization: z.string().describe('Basic authentication header (e.g., "Basic base64encodedcredentials" of username and password )')
+  authorization: z.string().describe('Bearer token for authentication')
 })
 export const notes = createRoute({
   tags: ['Notes'],
