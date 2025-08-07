@@ -17,9 +17,23 @@ export const getMedia = createRoute({
       },
       description: 'get media',
     },
-
+    500: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            message: z.string(),
+            status: z.string(),
+            success: z.boolean(),
+          }),
+        },
+      },
+      description: 'Internal server error',
+    },
   },
+
 }
+
+
 )
 export const uploadMedia = createRoute({
   tags: ['Media'],

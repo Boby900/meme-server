@@ -1,27 +1,28 @@
 import type { Bindings } from "@/types"
 import { logger } from 'hono/logger'
-import { HTTPException } from 'hono/http-exception' 
+import { HTTPException } from 'hono/http-exception'
 import { OpenAPIHono, z } from '@hono/zod-openapi'
+import { bearerAuth } from 'hono/bearer-auth'
 
 
 export default function createApp() {
     const app = new OpenAPIHono<{ Bindings: Bindings }>()
     app.use(logger())
-    
-    app.onError((err, c) => {
-      if (err instanceof HTTPException || err instanceof z.ZodError) {
-        // Get the custom response
-        return c.json({
-            message: "Something went wrong🚧",
-            error: err.message
-          })
-      }
-      return c.json({
-        message: "Internal Server Error",
-        error: err.message
-      }, 500)
-    }
-   
-)
+    app.use('/kv/*', bearerAuth({
+        verifyToken: async (token, c) => {
+            return token === c.env.BACKEND_SECRET
+        }
+    }))
+    app.use('/kv/*', bearerAuth({
+        verifyToken: async (token, c) => {
+            return token === c.env.BACKEND_SECRET
+        }
+    }))
+    app.use('/notes', bearerAuth({
+        verifyToken: async (token, c) => {
+            return token === c.env.BACKEND_SECRET
+        }
+    }))
+
     return app
 }

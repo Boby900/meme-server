@@ -1,59 +1,65 @@
 import { createRoute, z } from '@hono/zod-openapi'
-
+// Define the authorization header schema
+const authHeaderSchema = z.object({
+  authorization: z.string().describe('Bearer token for authentication')
+})
 export const notes = createRoute({
-    tags: ['Notes'],
-    path: '/get-notes',
-    method: 'get',
-    responses: {
-      200: {
-        content: {
-          'application/json': {
-            schema: z.string(),
-          },
+  tags: ['Notes'],
+  path: '/notes',
+  method: 'get',
+  request: {
+    headers: authHeaderSchema
+  },
+  responses: {
+    200: {
+      content: {
+        'application/json': {
+          schema: z.string(),
         },
-        description: 'get notes',
       },
+      description: 'get notes',
+    },
 
-    }}
+  }
+}
 )
 export const notesPost = createRoute({
-    tags: ['Notes'],
-    path: '/post-notes',
-    method: 'post',
-    request:{
-      body:
-      {
-        content:{
-          'application/json':{
-            schema: z.object({
-              key: z.string(),
-              name: z.string(),
-              email: z.email(),
-            }),
-          },
+  tags: ['Notes'],
+  path: '/notes',
+  method: 'post',
+  request: {
+    headers: authHeaderSchema,
+    body: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            key: z.string(),
+            name: z.string(),
+            email: z.email(),
+          }),
         },
-      }
-    },
-    responses: {
-      200: {
-        content: {
-          'application/json': {
-            schema: z.object({
-              message: z.string(),
-            }),
-          },
-        },
-        description: 'get notes',
       },
     },
-   
   },
-)
+  responses: {
+    200: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            message: z.string(),
+          }),
+        },
+      },
+      description: 'create note',
+    },
+  },
+})
 export const writeKVRoute = createRoute({
   tags: ['Notes'],
   method: "post",
   path: "/kv",
   request: {
+    headers: authHeaderSchema,
     body: {
       content: {
         "application/json": {
@@ -79,9 +85,11 @@ export const writeKVRoute = createRoute({
 
 export const readKVRoute = createRoute({
   tags: ['Notes'],
-  method: "get", 
+  method: "get",
   path: "/kv",
- 
+  request: {
+    headers: authHeaderSchema
+  },
   responses: {
     200: {
       content: {
@@ -104,9 +112,11 @@ export const readKVRoute = createRoute({
 
 export const deleteKVRoute = createRoute({
   tags: ['Notes'],
-  method: "delete", 
+  method: "delete",
   path: "/kv/{key}",
- 
+  request: {
+    headers: authHeaderSchema
+  },
   responses: {
     200: {
       content: {

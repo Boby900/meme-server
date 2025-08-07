@@ -7,4 +7,6 @@ export interface Bindings {
   NEXT_INC_CACHE_R2_BUCKET: R2Bucket,
   DEBUG_MODE: string
   API_VERSION: string
+  BACKEND_SECRET: string
+  BEARER_TOKEN: string  
 }
