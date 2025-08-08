@@ -8,15 +8,30 @@ export const notesHandler: RouteHandler<notesRoutes, { Bindings: Bindings }> = a
     )
 }
 export const notesPostHandler: RouteHandler<notesPostRoutes, { Bindings: Bindings }> = async (c) => {
-    const body = c.req.valid('json')
-    const name = body.name
-    const email = body.email
-    const key = body.key
-    return c.json({
-        message: `wrote ${name} to ${email} with key ${key} successfully!`,
-        //   status: 200,
-    })
+
+    try {
+        const body = c.req.valid('json')
+        const name = body.name
+        const email = body.email
+        const key = body.key
+        return c.json({
+            message: `wrote ${name} to ${email} with key ${key} successfully!`
+            //   status: 200,
+        }, 200)
+
+
+
+    } catch (error) {
+        console.error('Error writing to KV:', error)
+        return c.json({
+            error: 'Failed to write to KV',
+        }, 400)
+
+    }
+
 }
+
+
 export const writeNotesToKV: RouteHandler<writeKVRoute, { Bindings: Bindings }> = async (c) => {
     const body = c.req.valid('json')
 
@@ -39,7 +54,7 @@ export const readNotesFromKV: RouteHandler<readKVRoute, { Bindings: Bindings }> 
 }
 
 export const deleteNotesFromKV: RouteHandler<deleteKVRoute, { Bindings: Bindings }> = async (c) => {
-    const key = c.req.param('key')  
+    const key = c.req.param('key')
     console.log(key)
     const value = await c.env.KV.get(key)
     if (!value) {

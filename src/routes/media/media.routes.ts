@@ -1,9 +1,13 @@
+import { authHeaderSchema } from '@/lib/authorization-type'
 import { createRoute, z } from '@hono/zod-openapi'
 
 export const getMedia = createRoute({
   tags: ['Media'],
   path: '/get-media',
   method: 'get',
+  request: {
+    headers: authHeaderSchema
+  },
   responses: {
     200: {
       content: {

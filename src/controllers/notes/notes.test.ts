@@ -63,7 +63,7 @@ describe('Notes Controllers', () => {
       expect(mockContext.req.valid).toHaveBeenCalledWith('json')
       expect(mockContext.json).toHaveBeenCalledWith({
         message: `wrote ${mockBody.name} to ${mockBody.email} with key ${mockBody.key} successfully!`
-      })
+      },200)
     })
   })
 

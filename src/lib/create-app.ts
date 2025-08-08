@@ -8,17 +8,7 @@ import { bearerAuth } from 'hono/bearer-auth'
 export default function createApp() {
     const app = new OpenAPIHono<{ Bindings: Bindings }>()
     app.use(logger())
-    app.use('/kv/*', bearerAuth({
-        verifyToken: async (token, c) => {
-            return token === c.env.BACKEND_SECRET
-        }
-    }))
-    app.use('/kv/*', bearerAuth({
-        verifyToken: async (token, c) => {
-            return token === c.env.BACKEND_SECRET
-        }
-    }))
-    app.use('/notes', bearerAuth({
+    app.use('/api/*', bearerAuth({
         verifyToken: async (token, c) => {
             return token === c.env.BACKEND_SECRET
         }
