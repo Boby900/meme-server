@@ -1,11 +1,9 @@
 import { createRoute, z } from '@hono/zod-openapi'
 // Define the authorization header schema
-const authHeaderSchema = z.object({
-  authorization: z.string().describe('Bearer token for authentication')
-})
+import { authHeaderSchema } from '@/lib/authorization-type'
 export const notes = createRoute({
   tags: ['Notes'],
-  path: '/notes',
+  path: '/get-notes',
   method: 'get',
   request: {
     headers: authHeaderSchema
@@ -25,7 +23,7 @@ export const notes = createRoute({
 )
 export const notesPost = createRoute({
   tags: ['Notes'],
-  path: '/notes',
+  path: '/create-notes',
   method: 'post',
   request: {
     headers: authHeaderSchema,
@@ -51,6 +49,16 @@ export const notesPost = createRoute({
         },
       },
       description: 'create note',
+    },
+    400: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            error: z.string(),
+          }),
+        },
+      },
+      description: 'Bad request',
     },
   },
 })
